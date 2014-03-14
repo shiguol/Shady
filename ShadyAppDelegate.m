@@ -63,10 +63,28 @@
 	}
 	
 	// Create transparent window.
+  NSArray *screenArray = [NSScreen screens];
+  
+  NSScreen *scn01 = [screenArray objectAtIndex:0];
+  NSRect scn01Rect = [scn01 frame];
+
+  NSScreen *scn02 = [screenArray objectAtIndex:1];
+  NSRect scn02Rect = [scn02 frame];
+
+  // now we only work on build-in screen
+  
+  NSRect screensFrame = {{0,0},{0,0}};
+  
+  if (scn01Rect.size.height <= 800) {
+    screensFrame = scn01Rect;
+  }
+  
+  /*
 	NSRect screensFrame = [[NSScreen mainScreen] frame];
 	for (NSScreen *thisScreen in [NSScreen screens]) {
 		screensFrame = NSUnionRect(screensFrame, [thisScreen frame]);
-	}
+	}*/
+
 	window = [[MGTransparentWindow windowWithFrame:screensFrame] retain];
 	
 	// Configure window.
